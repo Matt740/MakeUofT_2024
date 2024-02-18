@@ -12,16 +12,15 @@ Servo servo_spring;
   float I_arm = 0.00053;
   float r = 0.2;
   float k = 216.52;
-  float unsprung_len = 104.2;
+  float unsprung_len = .1042;
 //
 
 void setup() {
 // put your setup code here, to run once:
 
-
 // Setting up constants for calculations
-  servo_arm.attach(3);
-  servo_spring.attach(5);
+  servo_arm.attach(5);
+  servo_spring.attach(3);
   //servo_base.attach(5);
   servo_arm.write(0);
   servo_spring.write(0);
@@ -29,7 +28,7 @@ void setup() {
 
   pinMode (LaserPin, OUTPUT); 
   digitalWrite (LaserPin, HIGH);
-  
+  Serial.begin(9600);
 //
 
 
@@ -57,11 +56,12 @@ float get_arm_angle(float d, float h) {
   float desired_V = d * sqrt(g/(d-h)); // necessary velocity from kinematics
   float displacement = sqrt(((2*m_arm*g*h_cm+I_arm*pow(desired_V/r,2))/k)); // calculated displacement necessary from conservation of energy
   float total_extended_len = displacement + unsprung_len; //triangle side
-  float theta = acos((pow(r,2)+pow(unsprung_len,2)-pow(total_extended_len,2))/(2*r*142.5)); //law of cosines gives angle in radians
-  return theta;
+  float theta = acos((pow(r,2)+pow(unsprung_len,2)-pow(total_extended_len,2))/(2*r*.1425)); //law of cosines gives angle in radians
+  Serial.print(theta*180/3.141592);
+  return theta*180/3.141592;
 }
 
-void position_arm(float arm_angle) {
+void position_arm(int arm_angle) {
   servo_spring.write(arm_angle);   // change arm angle name to whatever it was named in the get_arm_angle function
 }
 
@@ -76,12 +76,12 @@ void release_arm () {
 void loop() {
   // put your main code here, to run repeatedly:
   int h = 0;
-  int d = 30;
+  int d = 3;
   secure_catapult_arm();
   delay(3000);
   //position_base();
   //delay(3000);
-  float arm_angle = get_arm_angle(d, h);
+  int arm_angle = get_arm_angle(d, h);
   position_arm(arm_angle);
   delay(3000);
   release_arm();
