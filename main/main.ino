@@ -2,7 +2,7 @@
 
 Servo servo_arm;
 Servo servo_spring;
-Servo servo_base;
+Servo servo_base; // waittt this isnt a servo, Matt help plz :)
 
 void setup() {
 // put your setup code here, to run once:
@@ -65,12 +65,12 @@ void loop() {
   // put your main code here, to run repeatedly:
   secure_catapult_arm();
   delay(3000);
-  position_base();
-  delay(3000);
-  int arm_angle = get_arm_angle();
-  position_arm(arm_angle);
-  delay(3000);
+  //position_base();
+  //delay(3000);
+  //int arm_angle = get_arm_angle();
+  //position_arm(arm_angle);
+  //delay(3000);
   release_arm();
-  delay(5000);
+  delay(7000);
 
 }
