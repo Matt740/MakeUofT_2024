@@ -4,6 +4,16 @@ Servo servo_arm;
 Servo servo_spring;
 Servo servo_base; // waittt this isnt a servo, Matt help plz :)
 
+// Setting up constants for calculations
+  float g = 9.81;
+  float m_arm = .04;
+  float h_cm = 0.0707;
+  float I_arm = 0.00053;
+  float rad = 0.2;
+  float k = 216.52;
+  float unsprung_len = 104.2;
+//
+
 void setup() {
 // put your setup code here, to run once:
 
@@ -15,13 +25,6 @@ void setup() {
   servo_arm.write(0);
   servo_spring.write(0);
   servo_base.write(0);
-  
-  float g = 9.81;
-  float m_arm = .04;
-  float h_cm = 0.0707;
-  float I_am
-
-
   
 //
 
@@ -47,8 +50,14 @@ void position_base () {
 
 
 int get_arm_angle() {
-
-
+  float desired_V = d * sqrt(g/(d-h))); // necessary velocity from kinematics
+  Serial.println(desired_V);
+  float displacement = sqrt((2*m_arm*g*h_cm+I_arm*(desired_V/rad)^2)/k); // calculated displacement necessary from conservation of energy
+  Serial.println(displacement);
+  float total_extended_len = displacement + unsprung_length; //triangle side
+  Serial.println(total_extended_len);
+  float theta = acos((rad^2+unsprung_len^2-total_extended_len^2)/(2*r*142.5)); //law of cosines gives angle in radians
+  Serial.println(theta);
 }
 
 void position_arm(int arm_angle) {
