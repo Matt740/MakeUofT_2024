@@ -2,7 +2,7 @@
 
 Servo servo_arm;
 Servo servo_spring;
-Servo servo_base; // waittt this isnt a servo, Matt help plz :)
+//Servo servo_base; // waittt this isnt a servo, Matt help plz :)
 
 // Setting up constants for calculations
   float g = 9.81;
@@ -20,11 +20,11 @@ void setup() {
 
 // Setting up constants for calculations
   servo_arm.attach(3);
-  servo_spring.attach(4);
-  servo_base.attach(5);
+  servo_spring.attach(5);
+  //servo_base.attach(5);
   servo_arm.write(0);
   servo_spring.write(0);
-  servo_base.write(0);
+  //servo_base.write(0);
   
 //
 
