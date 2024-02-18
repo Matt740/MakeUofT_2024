@@ -1,4 +1,5 @@
 #include <Servo.h> 
+#define LaserPin 8
 
 Servo servo_arm;
 Servo servo_spring;
@@ -9,7 +10,7 @@ Servo servo_spring;
   float m_arm = .04;
   float h_cm = 0.0707;
   float I_arm = 0.00053;
-  float rad = 0.2;
+  float r = 0.2;
   float k = 216.52;
   float unsprung_len = 104.2;
 //
@@ -25,6 +26,9 @@ void setup() {
   servo_arm.write(0);
   servo_spring.write(0);
   //servo_base.write(0);
+
+  pinMode (LaserPin, OUTPUT); 
+  digitalWrite (LaserPin, HIGH);
   
 //
 
@@ -49,7 +53,7 @@ void position_base () {
 }
 
 
-int get_arm_angle() {
+float get_arm_angle(d, h) {
   float desired_V = d * sqrt(g/(d-h)); // necessary velocity from kinematics
   float displacement = sqrt(((2*m_arm*g*h_cm+I_arm*pow(desired_V/r,2))/k)); // calculated displacement necessary from conservation of energy
   float total_extended_len = displacement + unsprung_len; //triangle side
@@ -69,6 +73,7 @@ void release_arm () {
 
 void loop() {
   // put your main code here, to run repeatedly:
+ int d = 30;
   secure_catapult_arm();
   delay(3000);
   //position_base();
