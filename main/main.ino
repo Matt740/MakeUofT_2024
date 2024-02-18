@@ -61,27 +61,29 @@ float get_arm_angle(d, h) {
   return theta;
 }
 
-void position_arm(int arm_angle) {
+void position_arm(float arm_angle) {
   servo_spring.write(arm_angle);   // change arm angle name to whatever it was named in the get_arm_angle function
 }
 
 void release_arm () {
   servo_arm.write(180);
+  delay(5000);
+  servo_spring.write(0);
 }
 
 
 
 void loop() {
   // put your main code here, to run repeatedly:
- int d = 30;
+  int d = 30;
   secure_catapult_arm();
   delay(3000);
   //position_base();
   //delay(3000);
-  //int arm_angle = get_arm_angle();
-  //position_arm(arm_angle);
-  //delay(3000);
+  float arm_angle = get_arm_angle();
+  position_arm(arm_angle);
+  delay(3000);
   release_arm();
-  delay(7000);
+  delay(1000);
 
 }
