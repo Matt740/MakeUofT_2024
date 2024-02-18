@@ -50,14 +50,11 @@ void position_base () {
 
 
 int get_arm_angle() {
-  float desired_V = d * sqrt(g/(d-h))); // necessary velocity from kinematics
-  Serial.println(desired_V);
-  float displacement = sqrt((2*m_arm*g*h_cm+I_arm*(desired_V/rad)^2)/k); // calculated displacement necessary from conservation of energy
-  Serial.println(displacement);
-  float total_extended_len = displacement + unsprung_length; //triangle side
-  Serial.println(total_extended_len);
-  float theta = acos((rad^2+unsprung_len^2-total_extended_len^2)/(2*r*142.5)); //law of cosines gives angle in radians
-  Serial.println(theta);
+  float desired_V = d * sqrt(g/(d-h)); // necessary velocity from kinematics
+  float displacement = sqrt(((2*m_arm*g*h_cm+I_arm*pow(desired_V/r,2))/k)); // calculated displacement necessary from conservation of energy
+  float total_extended_len = displacement + unsprung_len; //triangle side
+  float theta = acos((pow(r,2)+pow(unsprung_len,2)-pow(total_extended_len,2))/(2*r*142.5)); //law of cosines gives angle in radians
+  return theta;
 }
 
 void position_arm(int arm_angle) {
