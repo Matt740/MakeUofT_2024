@@ -1,10 +1,16 @@
 void setup() {
 // put your setup code here, to run once:
+
+
+// Setting up constants for calculations
   float g = 9.81;
   float m_arm = .04;
   float h_cm = 0.0707;
   float I_am
 
+
+  
+//
 
 
 }
