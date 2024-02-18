@@ -15,6 +15,7 @@ void setup() {
   servo_arm.write(0);
   servo_spring.write(0);
   servo_base.write(0);
+  
   float g = 9.81;
   float m_arm = .04;
   float h_cm = 0.0707;
@@ -62,5 +63,14 @@ void release_arm () {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  secure_catapult_arm();
+  delay(3000);
+  position_base();
+  delay(3000);
+  int arm_angle = get_arm_angle();
+  position_arm(arm_angle);
+  delay(3000);
+  release_arm();
+  delay(5000);
 
 }
