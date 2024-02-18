@@ -53,7 +53,7 @@ void position_base () {
 }
 
 
-float get_arm_angle(d, h) {
+float get_arm_angle(float d, float h) {
   float desired_V = d * sqrt(g/(d-h)); // necessary velocity from kinematics
   float displacement = sqrt(((2*m_arm*g*h_cm+I_arm*pow(desired_V/r,2))/k)); // calculated displacement necessary from conservation of energy
   float total_extended_len = displacement + unsprung_len; //triangle side
@@ -75,12 +75,13 @@ void release_arm () {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  int h = 0;
   int d = 30;
   secure_catapult_arm();
   delay(3000);
   //position_base();
   //delay(3000);
-  float arm_angle = get_arm_angle();
+  float arm_angle = get_arm_angle(d, h);
   position_arm(arm_angle);
   delay(3000);
   release_arm();
